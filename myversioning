@@ -24,10 +24,10 @@ function file_search {
 	./file_search $args
 }
 
+echo -e "\n\t1 - init_repo\n\t2 - commit\n\t3 - remove\n\t4 - revert\n\t5 - status\n\t6 - file_search\n\t7 - quit\n"
 while [ true ]; do
-	echo -e "\n\t1 - init_repo\n\t2 - commit\n\t3 - remove\n\t4 - revert\n\t5 - status\n\t6 - file_search\n\t7 - quit\n"
 	read -p "(myversioning) " cmd
-	args=`echo $cmd | cut -d" " -f2-`
+	args=`echo $cmd | cut -d" " -s -f2-`
 	cmd=`echo $cmd | cut -d" " -f1`
 	case $cmd in
 		"init_repo") init_repo;;
