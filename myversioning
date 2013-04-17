@@ -1,32 +1,34 @@
 #!/bin/bash
 
 function init_repo {
-	./init_repo $args
+	./init_repo $repo "$args"
 }
 
 function commit {
-	./commit $args
+	./commit $repo "$args"
 }
 
 function remove {
-	./remove $args
+	./remove $repo "$args"
 }
 
 function revert {
-	./revert $args
+	./revert $repo "$args"
 }
 
 function status {
-	./status $args
+	./status $repo "$args"
 }
 
 function file_search {
-	./file_search $args
+	./file_search $repo "$args"
 }
+
 
 echo -e "\n\t1 - init_repo\n\t2 - commit\n\t3 - remove\n\t4 - revert\n\t5 - status\n\t6 - file_search\n\t7 - quit\n"
 while [ true ]; do
 	read -p "(myversioning) " cmd
+	repo=`echo $cmd | cut -d" " -s -f2`
 	args=`echo $cmd | cut -d" " -s -f2-`
 	cmd=`echo $cmd | cut -d" " -f1`
 	case $cmd in
