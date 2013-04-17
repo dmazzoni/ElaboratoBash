@@ -14,12 +14,12 @@ if [ ! -d "$working_dir" ]; then
 fi
 
 if [ ! -d "$backup_dir" ]; then
-	echo "Directory \"$backup_dir\" does not exist." # repo has to be initialized
+	echo "Repository \"$1\" has not been initialized."
 	exit 1;
 fi
 
 for file in `find $working_dir -type f`; do
-	file_backup="$backup_dir/`echo $file | cut -d/ -f2-`"  #taglia via il ./$working_dir/
+	file_backup="$backup_dir/`echo $file | cut -d/ -f2-`"  #taglia via il $working_dir/
 	if [ ! -f "$file_backup" ] || [ -n "`diff $file $file_backup`" ]; then
 		echo $file | cut -d/ -f2-
 	fi
