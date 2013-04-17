@@ -2,12 +2,12 @@
 
 if [ -n "$2" ]; then
 	echo "Usage: init_repo <repo>"
-	exit 1;
+	exit;
 fi
 if [ -d ".$1.bck" ]; then
 	echo "Repository \"$1\" already exists."
-	exit 1;
+	exit;
 fi
 mkdir .$1.bck
 mkdir -p $1
-exit 0;
+exit;
