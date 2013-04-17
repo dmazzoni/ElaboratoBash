@@ -5,7 +5,7 @@ if [ $# -ne 1 ]; then
 	exit 1;
 fi
 if [ -d ".$1.bck" ]; then
-	echo -e "Repository \"$1\" already exists."
+	echo "Repository \"$1\" already exists."
 	exit 1;
 fi
 mkdir .$1.bck
