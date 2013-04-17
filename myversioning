@@ -29,7 +29,7 @@ echo -e "\n\t1 - init_repo\n\t2 - commit\n\t3 - remove\n\t4 - revert\n\t5 - stat
 while [ true ]; do
 	read -p "(myversioning) " cmd
 	repo=`echo $cmd | cut -d" " -s -f2`
-	args=`echo $cmd | cut -d" " -s -f2-`
+	args=`echo $cmd | cut -d" " -s -f3-`
 	cmd=`echo $cmd | cut -d" " -f1`
 	case $cmd in
 		"init_repo") init_repo;;
