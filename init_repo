@@ -1,6 +1,6 @@
 #!/bin/bash
 
-if [ $# -ne 1 ]; then
+if [ -n "$2" ]; then
 	echo "Usage: init_repo <repo>"
 	exit 1;
 fi
