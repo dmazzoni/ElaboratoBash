@@ -4,7 +4,7 @@ function create_dir {
 	if [ -d "$1" ]; then
 		echo "Directory \"$1\" already exists."
 	else
-		mkdir ".$1.bck"
+		mkdir "$1"
 		if [ $? -eq 0 ]; then
 			echo "Directory \"$1\" has been successfully created."
 		fi
