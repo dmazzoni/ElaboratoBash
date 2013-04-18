@@ -1,3 +1,15 @@
 #!/bin/bash
 
-echo $@
+if [ -z "$2" ]; then
+  echo "Usage: file_search <repo> <pattern>"
+	exit
+fi
+
+repo=$1
+
+if [ ! -d "$1" ]; then
+	echo "Directory \"$repo\" does not exist."
+	exit
+fi
+
+grep "$2" `find $repo -type f` | cut -d: -f1 -s | uniq | cut -d/ -f2- | sort
