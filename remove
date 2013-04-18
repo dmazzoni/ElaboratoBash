@@ -1,8 +1,8 @@
 #!/bin/bash
 
 if [ -z "$2" ]; then
-  echo "Usage: remove <repo> <file name>"
-	exit;
+  	echo "Usage: remove <repo> <file name>"
+	exit
 fi
 
 backup_dir=".$1.bck"
@@ -11,7 +11,7 @@ backup_copy="$backup_dir/$2"
 
 if [ ! -d "$backup_dir" ]; then
 	echo "Repository \"$1\" does not exist."
-	exit;
+	exit
 fi
 
 if [ -f "$backup_copy" ]; then
