@@ -1,8 +1,8 @@
 #!/bin/bash
 
 if [ -n "$2" ]; then
-  echo "Usage: status <repo>"
-	exit;
+  	echo "Usage: status <repo>"
+	exit
 fi
 
 working_dir=$1
@@ -10,12 +10,12 @@ backup_dir=".$1.bck"
 
 if [ ! -d "$working_dir" ]; then 
 	echo "Directory \"$working_dir\" does not exist."
-	exit;
+	exit
 fi
 
 if [ ! -d "$backup_dir" ]; then
 	echo "Repository \"$1\" has not been initialized."
-	exit;
+	exit
 fi
 
 for file in `find $working_dir -type f`; do
