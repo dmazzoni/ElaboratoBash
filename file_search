@@ -12,4 +12,10 @@ if [ ! -d "$1" ]; then
 	exit
 fi
 
-grep "$2" `find $repo -type f` | cut -d: -f1 -s | uniq | cut -d/ -f2- | sort
+find $repo -type f | while read filename
+do
+	if [ -n "`grep "$2" "$filename"`" ]
+		file_list+="$filename\n"
+done
+
+# Ordinare e formattare la lista (file_list)
