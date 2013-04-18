@@ -15,13 +15,20 @@ if [ ! -d "$backup_dir" ]; then
 fi
 
 if [ -f "$backup_copy" ]; then
-	rm "$backup_copy"
+	rm -f "$backup_copy"  #-f per forzare rimozione
+	if [ $? -eq 0 ]; then
+		echo "Backup copy of file \"$2\" has been successfully removed."
+	fi
 else
 	echo "Backup copy of file \"$2\" does not exist."
 fi
 
 if [ -f "$working_copy" ]; then
-	rm "$working_copy"
+	rm -f "$working_copy"  #-f per forzare rimozione
+	if [ $? -eq 0 ]; then
+		echo "Working copy of file \"$2\" has been successfully removed."
+	fi
+	
 else
 	echo "Working copy of file \"$2\" does not exist."
 fi
