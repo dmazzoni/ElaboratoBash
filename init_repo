@@ -1,13 +1,20 @@
 #!/bin/bash
 
+function create_dir {
+	if [ -d "$1" ]; then
+		echo "Directory \"$1\" already exists."
+	else
+		mkdir ".$1.bck"
+		if [ $? -eq 0 ]; then
+			echo "Directory \"$1\" has been successfully created."
+		fi
+	fi
+}
+
 if [ -n "$2" ]; then
 	echo "Usage: init_repo <repo>"
 	exit
 fi
-if [ -d ".$1.bck" ]; then
-	echo "Repository \"$1\" already exists."
-	exit
-fi
-mkdir .$1.bck
-mkdir -p $1
-exit
+
+create_dir ".$1.bck"
+create_dir "$1"
