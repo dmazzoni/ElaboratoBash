@@ -1,7 +1,7 @@
 #!/bin/bash
 
 if [ -z "$2" ]; then
-  echo "Usage: file_search <repo> <pattern>"
+  	echo "Usage: file_search <repo> <pattern>"
 	exit
 fi
 
@@ -12,10 +12,10 @@ if [ ! -d "$1" ]; then
 	exit
 fi
 
-find $repo -type f | while read filename
-do
-	if [ -n "`grep "$2" "$filename"`" ]
-		file_list+="$filename\n"
-done
+find_output=`find $repo -type f`
+while read file_name; do
+	if [ -n "`grep "$2" "$file_name"`" ]
+		file_list+="$file_name\n"
+done <<< "$find_output"
 
 # Ordinare e formattare la lista (file_list)
