@@ -1,5 +1,18 @@
 #!/bin/bash
 
+function remove_file {
+	if [ -f "$1" ]; then
+		rm -f "$1"  #-f per forzare rimozione
+		if [ $? -eq 0 ]; then
+			echo "$2 copy of file has been successfully removed."
+		fi
+	else
+		echo "$2 copy of file does not exist."
+	fi
+
+}
+
+
 if [ -z "$2" ]; then
   	echo "Usage: remove <repo> <file name>"
 	exit
@@ -14,21 +27,5 @@ if [ ! -d "$backup_dir" ]; then
 	exit
 fi
 
-if [ -f "$backup_copy" ]; then
-	rm -f "$backup_copy"  #-f per forzare rimozione
-	if [ $? -eq 0 ]; then
-		echo "Backup copy of file \"$2\" has been successfully removed."
-	fi
-else
-	echo "Backup copy of file \"$2\" does not exist."
-fi
-
-if [ -f "$working_copy" ]; then
-	rm -f "$working_copy"  #-f per forzare rimozione
-	if [ $? -eq 0 ]; then
-		echo "Working copy of file \"$2\" has been successfully removed."
-	fi
-	
-else
-	echo "Working copy of file \"$2\" does not exist."
-fi
+remove_file "$working_copy" "Working"
+remove_file "$backup_copy" "Backup"
