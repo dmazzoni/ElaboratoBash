@@ -22,6 +22,13 @@ find $working_dir -type f | while read filename
 do
 	file_backup="$backup_dir/`echo $filename | cut -d/ -f2-`"  #taglia via il $working_dir/
 	if [ ! -f "$file_backup" ] || [ -n "`diff "$filename" "$file_backup"`" ]; then
-		echo $filename | cut -d/ -f2-
+		file_list+="`echo $filename | cut -d/ -f2-`\n"
 	fi
 done
+
+if [ -n "$file_list" ]; then
+	echo "Everything is up to date."
+else
+	echo -e "Files to be committed:\n"
+	echo -e "$file_list"
+fi
