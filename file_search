@@ -16,6 +16,7 @@ find_output=`find $repo -type f`
 while read file_name; do
 	if [ -n "`grep "$2" "$file_name"`" ]
 		file_list+="$file_name\n"
+	fi
 done <<< "$find_output"
 
 # Ordinare e formattare la lista (file_list)
