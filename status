@@ -1,14 +1,14 @@
 #!/bin/bash
 
 if [ -n "$2" ]; then
-  	echo "Usage: status <repo>"
+	echo "Usage: status <repo>"
 	exit
 fi
 
 working_dir=$1
 backup_dir=".$1.bck"
 
-if [ ! -d "$working_dir" ]; then 
+if [ ! -d "$working_dir" ]; then
 	echo "Directory \"$working_dir\" does not exist."
 	exit
 fi
@@ -18,15 +18,15 @@ if [ ! -d "$backup_dir" ]; then
 	exit
 fi
 
-find $working_dir -type f | while read filename
-do
-	file_backup="$backup_dir/`echo $filename | cut -d/ -f2-`"  #taglia via il $working_dir/
-	if [ ! -f "$file_backup" ] || [ -n "`diff "$filename" "$file_backup"`" ]; then
-		file_list+="`echo $filename | cut -d/ -f2-`\n"
+find_output=`find $working_dir -type f`
+while read working_file; do
+	backup_file="$backup_dir/`echo $working_file | cut -d/ -f2-`" #taglia via il $working_dir/
+	if [ ! -f "$backup_file" ] || [ -n "`diff "$working_file" "$backup_file"`" ]; then
+		file_list+="`echo $working_file | cut -d/ -f2-`\n"
 	fi
-done
+done <<< "$find_output"
 
-if [ -n "$file_list" ]; then
+if [ -z "$file_list" ]; then
 	echo "Everything is up to date."
 else
 	echo -e "Files to be committed:\n"
