@@ -31,7 +31,7 @@ while [ true ]; do
 	repo=`echo $cmd | cut -d" " -s -f2`	# the second field of cmd is the name of repository
 	args=`echo $cmd | cut -d" " -s -f3-`	# arguments of the command start from the third field until the end of the string
 	cmd=`echo $cmd | cut -d" " -f1`		# the first field of cmd is the function requested
-	case $cmd in
+	case $cmd in				# switches on cmd calling the corresponding script
 		"init_repo") init_repo;;
 		"commit") commit;;
 		"remove") remove;;
