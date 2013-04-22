@@ -11,7 +11,7 @@ function create_dir {
 	fi
 }
 
-if [ -n "$2" ]; then		# checks that the correct number of arguments is passed
+if [ -n "$2" ]; then		# if more than 1 argument is passed
 	echo "Usage: init_repo <repo>"	
 	exit			
 fi
