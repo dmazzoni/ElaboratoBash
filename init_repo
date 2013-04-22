@@ -1,20 +1,20 @@
 #!/bin/bash
 
 function create_dir {
-	if [ -d "$1" ]; then
-		echo "Directory \"$1\" already exists."
+	if [ -d "$1" ]; then		# if the directory already exists
+		echo "Directory \"$1\" already exists."	# thre's nothing to do
 	else
-		mkdir "$1"
-		if [ $? -eq 0 ]; then
+		mkdir "$1"		# otherwise, it creates it
+		if [ $? -eq 0 ]; then	# if the exit code of mkdir is equal to 0
 			echo "Directory \"$1\" has been successfully created."
 		fi
 	fi
 }
 
-if [ -n "$2" ]; then
-	echo "Usage: init_repo <repo>"
-	exit
+if [ -n "$2" ]; then		# checks that the correct number of arguments is passed
+	echo "Usage: init_repo <repo>"	
+	exit			
 fi
 
-create_dir ".$1.bck"
-create_dir "$1"
+create_dir ".$1.bck"		# calls create-dir to create the backup directory
+create_dir "$1"			# calls create-dir to create the working directory
