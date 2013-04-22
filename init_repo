@@ -2,9 +2,9 @@
 
 function create_dir {
 	if [ -d "$1" ]; then		# if the directory already exists
-		echo "Directory \"$1\" already exists."	# thre's nothing to do
+		echo "Directory \"$1\" already exists."	# there's nothing to do
 	else
-		mkdir "$1"		# otherwise, it creates it
+		mkdir "$1"		# otherwise, it creates the directory
 		if [ $? -eq 0 ]; then	# if the exit code of mkdir is equal to 0
 			echo "Directory \"$1\" has been successfully created."
 		fi
