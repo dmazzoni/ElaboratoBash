@@ -26,11 +26,11 @@ function file_search {
 
 
 echo -e "\n\t1 - init_repo\n\t2 - commit\n\t3 - remove\n\t4 - revert\n\t5 - status\n\t6 - file_search\n\t7 - quit\n"
-while [ true ]; do
-	read -p "(myversioning) " cmd
-	repo=`echo $cmd | cut -d" " -s -f2`
-	args=`echo $cmd | cut -d" " -s -f3-`
-	cmd=`echo $cmd | cut -d" " -f1`
+while [ true ]; do				
+	read -p "(myversioning) " cmd		# reads a command with a prompt string
+	repo=`echo $cmd | cut -d" " -s -f2`	# the second field of cmd is the name of repository
+	args=`echo $cmd | cut -d" " -s -f3-`	# arguments of the command start from the third field until the end of the string
+	cmd=`echo $cmd | cut -d" " -f1`		# the first field of cmd is the function requested
 	case $cmd in
 		"init_repo") init_repo;;
 		"commit") commit;;
