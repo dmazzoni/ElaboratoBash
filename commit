@@ -1,3 +1,24 @@
 #!/bin/bash
 
-echo $@
+if [ -n "$2" ]; then
+	echo "Usage: commit <repo>"
+	exit
+fi
+
+staged_files=`./status "$1" ""`
+if [ $? -ne 0 ]; then
+	echo -e "$staged_files"
+	exit	
+fi
+
+staged_files=`echo -e "$staged_files" | head -n -0 | tail -n +3`
+
+cd $1
+while read file_name; do
+	if [ -n "$file_name" ]; then
+		cp --parents "$file_name" "../.$1.bck"
+		if [ $? -eq 0 ]; then
+			echo "File $file_name successfully committed."
+		fi
+	fi
+done <<< "$staged_files"

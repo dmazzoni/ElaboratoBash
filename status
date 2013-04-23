@@ -10,25 +10,29 @@ backup_dir=".$1.bck"
 
 if [ ! -d "$working_dir" ]; then
 	echo "Directory \"$working_dir\" does not exist."
-	exit
+	exit 1
 fi
 
 if [ ! -d "$backup_dir" ]; then
 	echo "Repository \"$1\" has not been initialized."
-	exit
+	exit 1
 fi
 
 find_output=`find $working_dir -type f`
-while read working_file; do
-	backup_file="$backup_dir/`echo $working_file | cut -d/ -f2-`" #taglia via il $working_dir/
-	if [ ! -f "$backup_file" ] || [ -n "`diff "$working_file" "$backup_file"`" ]; then
-		file_list+="`echo $working_file | cut -d/ -f2-`\n"
-	fi
-done <<< "$find_output"
+if [ -n "$find_output" ]; then
+	while read working_file; do
+		backup_file="$backup_dir/`echo $working_file | cut -d/ -f2-`"
+		if [ ! -f "$backup_file" ] || [ -n "`diff "$working_file" "$backup_file"`" ]; then
+			file_list+="./`echo $working_file | cut -d/ -f2-`\n"
+		fi
+	done <<< "$find_output"
+fi
 
 if [ -z "$file_list" ]; then
 	echo "Everything is up to date."
+	exit 2
 else
-	echo -e "Files to be committed:\n"
-	echo -e "$file_list"
+	echo "Files to be committed:"
+	echo -e "$file_list" | sort
+	echo ""
 fi
