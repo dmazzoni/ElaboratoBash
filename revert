@@ -1,5 +1,10 @@
 #!/bin/bash
 
+if [ -z "$1" ]; then
+	echo "Usage: revert <repo> [filename]"
+	exit
+fi
+
 working_dir=$1
 backup_dir=".$1.bck"
 

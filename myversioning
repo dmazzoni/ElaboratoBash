@@ -24,6 +24,10 @@ function file_search {
 	./file_search $repo "$args"
 }
 
+if [ -n "$1" ]; then
+	echo "Usage: myversioning"
+	exit
+fi
 
 echo -e "\n\t1 - init_repo\n\t2 - commit\n\t3 - remove\n\t4 - revert\n\t5 - status\n\t6 - file_search\n\t7 - quit\n"
 while [ true ]; do				

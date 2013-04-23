@@ -1,6 +1,6 @@
 #!/bin/bash
 
-if [ -n "$2" ]; then
+if [ -n "$2" ] || [ -z "$1" ]; then
 	echo "Usage: status <repo>"
 	exit
 fi
