@@ -5,7 +5,7 @@ function create_dir {
 		echo "Directory \"$1\" already exists."	# there's nothing to do
 	else
 		mkdir "$1"		# otherwise, it creates the directory
-		if [ $? -eq 0 ]; then	# if the exit code of mkdir is equal to 0
+		if [ $? -eq 0 ]; then	# if the exit code of mkdir is equal to 0 (no errors)
 			echo "Directory \"$1\" has been successfully created."
 		fi
 	fi
