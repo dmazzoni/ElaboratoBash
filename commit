@@ -1,13 +1,13 @@
 #!/bin/bash
 
-if [ -n "$2" ] || [ -z "$1"]; then		# if more than 1 argument is passed or the first has length 0
+if [ -n "$2" ] || [ -z "$1" ]; then		# if more than 1 argument is passed or the first has length 0
 	echo "Usage: commit <repo>"
 	exit
 fi
 
 staged_files=`./status "$1" ""`		# status returns the list of files to commit
 if [ $? -ne 0 ]; then				# if there is nothing to commit, or the repo does not exist
-	echo -e "$staged_files"			# print status output
+	echo -e "$staged_files"			# prints status output
 	exit	
 fi
 
