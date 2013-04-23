@@ -1,3 +1,36 @@
 #!/bin/bash
 
-echo $@
+working_dir=$1
+backup_dir=".$1.bck"
+
+if [ ! -d "$working_dir" ]; then
+	echo "Directory \"$working_dir\" does not exist."
+	exit 1
+fi
+
+if [ ! -d "$backup_dir" ]; then
+	echo "Repository \"$1\" has not been initialized."
+	exit 1
+fi
+
+cd $backup_dir
+if [ -n "$2" ]; then
+	if [ ! -e "$2" ]; then
+		echo "Backup copy of file \"$2\" does not exist."
+	else
+		cp --parents "$2" "../$working_dir"
+		if [ $? -eq 0 ]; then
+			echo "File \"$2\" successfully restored."
+		fi
+	fi
+else
+	find_output=`find . -type f`
+	if [ -n "$find_output" ]; then
+		while read backup_file; do
+			cp --parents "$backup_file" "../$working_dir"
+			if [ $? -eq 0 ]; then
+				echo "File \"$backup_file\" successfully restored."
+			fi
+		done <<< "$find_output"
+	fi
+fi
