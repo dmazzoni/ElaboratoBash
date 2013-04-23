@@ -1,6 +1,6 @@
 #!/bin/bash
 
-if [ -n "$2" ] || [ -z "$1"]; then		# if more than 1 argument is passed
+if [ -n "$2" ] || [ -z "$1"]; then		# if more than 1 argument is passed or the first has length 0
 	echo "Usage: commit <repo>"
 	exit
 fi
