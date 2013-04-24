@@ -1,6 +1,6 @@
 #!/bin/bash
 
-if [ -n "$2" ] || [ -z "$1" ]; then		# if more than 1 argument is passed or the first has length 0
+if [ -n "$2" ] || [ -z "$1" ]; then	# if more than 1 argument is passed or the first has length 0
 	echo "Usage: status <repo>"
 	exit
 fi
@@ -8,7 +8,7 @@ fi
 working_dir=$1
 backup_dir=".$1.bck"
 
-if [ ! -d "$working_dir" ]; then		# if the working directory does not exist
+if [ ! -d "$working_dir" ]; then	# if the working directory does not exist
 	echo "Directory \"$working_dir\" does not exist."
 	exit 1		# exit code is checked by the commit script
 fi
@@ -31,7 +31,7 @@ fi
 
 if [ -z "$file_list" ]; then		# if the list of files to commit is empty
 	echo "Everything is up to date."
-	exit 2					# exit code is checked by the commit script
+	exit 2				# exit code is checked by the commit script
 else
 	echo "Files to be committed:"
 	echo -e "$file_list" | sort
