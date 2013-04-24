@@ -8,7 +8,7 @@ fi
 working_dir=$1
 backup_dir=".$1.bck"
 
-if [ ! -d "$working_dir" ]; then		# if the working directory does not exist
+if [ ! -d "$working_dir" ]; then	# if the working directory does not exist
 	echo "Directory \"$working_dir\" does not exist."
 	exit 1
 fi
@@ -18,7 +18,7 @@ if [ ! -d "$backup_dir" ]; then		# if the backup directory does not exist
 	exit 1
 fi
 
-cd $backup_dir				# moves into the backup directory
+cd $backup_dir			# moves into the backup directory
 if [ -n "$2" ]; then		# if a file to revert has been specified
 	if [ ! -e "$2" ]; then	# if the backup file does not exist
 		echo "Backup copy of file \"$2\" does not exist."
