@@ -23,17 +23,17 @@ if [ -n "$find_output" ]; then		# if at least one file has been found
 	while read working_file; do
 		backup_file="$backup_dir/`echo $working_file | cut -d/ -f2-`"
 		# if the backup copy does not exist or the file has changed
-		if [ ! -f "$backup_file" ] || [ -n "`diff "$working_file" "$backup_file"`" ]; then
-			file_list+="./`echo $working_file | cut -d/ -f2-`\n"
+		if [ ! -e "$backup_file" ] || [ -n "`diff "$working_file" "$backup_file"`" ]; then
+			changed_files+="./`echo $working_file | cut -d/ -f2-`\n"
 		fi
 	done <<< "$find_output"		# $find_output is redirected to the stdin of the loop's read command
 fi
 
-if [ -z "$file_list" ]; then		# if the list of files to commit is empty
+if [ -z "$changed_files" ]; then		# if the list of files to commit is empty
 	echo "Everything is up to date."
 	exit 2				# exit code is checked by the commit script
 else
 	echo "Files to be committed:"
-	echo -e "$file_list" | sort
+	echo -e "$changed_files" | sort
 	echo ""
 fi

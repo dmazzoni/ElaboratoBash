@@ -37,5 +37,7 @@ else
 				echo "File \"$backup_file\" successfully restored."
 			fi
 		done <<< "$find_output"		# $find_output is redirected to the stdin of the loop's read command
+	else
+		echo "No files to restore."
 	fi
 fi

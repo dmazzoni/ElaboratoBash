@@ -5,7 +5,7 @@ if [ -n "$2" ] || [ -z "$1" ]; then	# if more than 1 argument is passed or the f
 	exit
 fi
 
-staged_files=`./status "$1" ""`		# status returns the list of files to commit
+staged_files=`./status "$1"`		# status returns the list of files to commit
 if [ $? -ne 0 ]; then				# if there is nothing to commit, or the repo does not exist
 	echo -e "$staged_files"			# prints status output
 	exit	
@@ -15,10 +15,8 @@ staged_files=`echo -e "$staged_files" | head -n -0 | tail -n +3`
 
 cd $1							# moves into the working directory
 while read file_name; do				# iterates over the list of staged files
-	if [ -n "$file_name" ]; then
-		cp --parents "$file_name" "../.$1.bck"
-		if [ $? -eq 0 ]; then
-			echo "File $file_name successfully committed."
-		fi
+	cp --parents "$file_name" "../.$1.bck"
+	if [ $? -eq 0 ]; then
+		echo "File $file_name successfully committed."
 	fi
 done <<< "$staged_files"				# the list of staged files is redirected to the stdin of the while loop's read command
