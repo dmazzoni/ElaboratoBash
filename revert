@@ -1,6 +1,6 @@
 #!/bin/bash
 
-if [ -z "$1" ]; then
+if [ -z "$1" ]; then		# if no arguments are passed
 	echo "Usage: revert <repo> [filename]"
 	exit
 fi
@@ -8,34 +8,34 @@ fi
 working_dir=$1
 backup_dir=".$1.bck"
 
-if [ ! -d "$working_dir" ]; then
+if [ ! -d "$working_dir" ]; then		# if the working directory does not exist
 	echo "Directory \"$working_dir\" does not exist."
 	exit 1
 fi
 
-if [ ! -d "$backup_dir" ]; then
+if [ ! -d "$backup_dir" ]; then		# if the backup directory does not exist
 	echo "Repository \"$1\" has not been initialized."
 	exit 1
 fi
 
-cd $backup_dir
-if [ -n "$2" ]; then
-	if [ ! -e "$2" ]; then
+cd $backup_dir				# moves into the backup directory
+if [ -n "$2" ]; then		# if a file to revert has been specified
+	if [ ! -e "$2" ]; then	# if the backup file does not exist
 		echo "Backup copy of file \"$2\" does not exist."
 	else
 		cp --parents "$2" "../$working_dir"
-		if [ $? -eq 0 ]; then
+		if [ $? -eq 0 ]; then		# if cp has exited with code 0 (no errors)
 			echo "File \"$2\" successfully restored."
 		fi
 	fi
 else
-	find_output=`find . -type f`
-	if [ -n "$find_output" ]; then
+	find_output=`find . -type f`		# holds the list of all files in the backup directory (.)
+	if [ -n "$find_output" ]; then	# if the list of files has length > 0
 		while read backup_file; do
 			cp --parents "$backup_file" "../$working_dir"
-			if [ $? -eq 0 ]; then
+			if [ $? -eq 0 ]; then	# if cp has exited with code 0 (no errors)
 				echo "File \"$backup_file\" successfully restored."
 			fi
-		done <<< "$find_output"
+		done <<< "$find_output"		# $find_output is redirected to the stdin of the loop's read command
 	fi
 fi

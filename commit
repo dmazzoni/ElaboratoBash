@@ -1,6 +1,6 @@
 #!/bin/bash
 
-if [ -n "$2" ] || [ -z "$1" ]; then		# if more than 1 argument is passed or the first has length 0
+if [ -n "$2" ] || [ -z "$1" ]; then	# if more than 1 argument is passed or the first has length 0
 	echo "Usage: commit <repo>"
 	exit
 fi
@@ -13,7 +13,7 @@ fi
 
 staged_files=`echo -e "$staged_files" | head -n -0 | tail -n +3`
 
-cd $1
+cd $1							# moves into the working directory
 while read file_name; do				# iterates over the list of staged files
 	if [ -n "$file_name" ]; then
 		cp --parents "$file_name" "../.$1.bck"

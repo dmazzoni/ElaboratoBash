@@ -1,6 +1,6 @@
 #!/bin/bash
 
-if [ -n "$2" ] || [ -z "$1" ]; then
+if [ -n "$2" ] || [ -z "$1" ]; then		# if more than 1 argument is passed or the first has length 0
 	echo "Usage: status <repo>"
 	exit
 fi
@@ -8,29 +8,30 @@ fi
 working_dir=$1
 backup_dir=".$1.bck"
 
-if [ ! -d "$working_dir" ]; then
+if [ ! -d "$working_dir" ]; then		# if the working directory does not exist
 	echo "Directory \"$working_dir\" does not exist."
-	exit 1
+	exit 1		# exit code is checked by the commit script
 fi
 
-if [ ! -d "$backup_dir" ]; then
+if [ ! -d "$backup_dir" ]; then		# if the backup directory does not exist
 	echo "Repository \"$1\" has not been initialized."
 	exit 1
 fi
 
-find_output=`find $working_dir -type f`
-if [ -n "$find_output" ]; then
+find_output=`find $working_dir -type f`	# holds the names of all files in the working directory
+if [ -n "$find_output" ]; then		# if at least one file has been found
 	while read working_file; do
 		backup_file="$backup_dir/`echo $working_file | cut -d/ -f2-`"
+		# if the backup copy does not exist or the file has changed
 		if [ ! -f "$backup_file" ] || [ -n "`diff "$working_file" "$backup_file"`" ]; then
 			file_list+="./`echo $working_file | cut -d/ -f2-`\n"
 		fi
-	done <<< "$find_output"
+	done <<< "$find_output"		# $find_output is redirected to the stdin of the loop's read command
 fi
 
-if [ -z "$file_list" ]; then
+if [ -z "$file_list" ]; then		# if the list of files to commit is empty
 	echo "Everything is up to date."
-	exit 2
+	exit 2					# exit code is checked by the commit script
 else
 	echo "Files to be committed:"
 	echo -e "$file_list" | sort
